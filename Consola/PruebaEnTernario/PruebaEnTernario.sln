@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PruebaEnTernario", "PruebaEnTernario\PruebaEnTernario.csproj", "{249B9284-C555-4D02-B8D2-AAA829CB465E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fusion", "Fusion\Fusion.csproj", "{AAF99ABF-CA0B-498B-AC6D-B965B4D6C70F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{249B9284-C555-4D02-B8D2-AAA829CB465E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{249B9284-C555-4D02-B8D2-AAA829CB465E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{249B9284-C555-4D02-B8D2-AAA829CB465E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{249B9284-C555-4D02-B8D2-AAA829CB465E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAF99ABF-CA0B-498B-AC6D-B965B4D6C70F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAF99ABF-CA0B-498B-AC6D-B965B4D6C70F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAF99ABF-CA0B-498B-AC6D-B965B4D6C70F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAF99ABF-CA0B-498B-AC6D-B965B4D6C70F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {247D1F54-D34E-40C6-A74F-D2ACFEC4DB24}
+	EndGlobalSection
+EndGlobal
