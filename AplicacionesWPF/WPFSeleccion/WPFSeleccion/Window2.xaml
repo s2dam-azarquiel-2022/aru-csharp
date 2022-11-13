@@ -1,0 +1,82 @@
+﻿<Window x:Class="WPFSeleccion.Window2"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFSeleccion"
+        mc:Ignorable="d"
+        Title="Window2" Height="450" Width="800">
+    <Window.Resources>
+        <DataTemplate x:Key="ListViewItemTemplate1">
+            <Grid Height="42" Width="390" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="{Binding Apellidos}"/>
+                <TextBlock Grid.Column="1" Text="{Binding Nombre}"/>
+                <TextBlock Grid.Column="2" Text="{Binding ImporteTotalCompras, StringFormat={}{0} €}"/>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <ListView Grid.Column="0">
+            <ListView.Items>
+                <local:Cliente
+                    Apellidos="MARTIN FUENTES" Nombre="Juan"
+                    ImporteTotalCompras="127.42" />
+                <local:Cliente
+                    Apellidos="HERNANDEZ MARTIN" Nombre="Eric"
+                    ImporteTotalCompras="98.02" />
+                <local:Cliente
+                    Apellidos="ALCALDE BLANCO" Nombre="Sofía"
+                    ImporteTotalCompras="241.95" />
+            </ListView.Items>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn
+                        Header="Apellidos" Width="120"
+                        DisplayMemberBinding="{Binding Apellidos}" />
+                    <GridViewColumn
+                        Header="Nombre" Width="120"
+                        DisplayMemberBinding="{Binding Nombre}" />
+                    <GridViewColumn
+                        Header="Importe compras" Width="120"
+                        DisplayMemberBinding="{Binding ImporteTotalCompras, StringFormat={}{0} €}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="Apellido" Background="#FFA132A2" />
+            <TextBlock Grid.Column="1" Grid.Row="0" Text="Nombre" Background="#FFA132A2" />
+            <TextBlock Grid.Column="2" Grid.Row="0" Text="Importe" Background="#FFA132A2" />
+            <ListView ItemTemplate="{DynamicResource ListViewItemTemplate1}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3">
+                <ListView.Items>
+                    <local:Cliente
+                    Apellidos="MARTIN FUENTES" Nombre="Juan"
+                    ImporteTotalCompras="127.42" />
+                    <local:Cliente
+                    Apellidos="HERNANDEZ MARTIN" Nombre="Eric"
+                    ImporteTotalCompras="98.02" />
+                    <local:Cliente
+                    Apellidos="ALCALDE BLANCO" Nombre="Sofía"
+                    ImporteTotalCompras="241.95" />
+                </ListView.Items>
+            </ListView>
+        </Grid>
+    </Grid>
+</Window>
