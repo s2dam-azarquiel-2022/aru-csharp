@@ -18,6 +18,59 @@ namespace DatosLibros.ViewModel
         private DataSet DataSet;
         private OleDbCommandBuilder CommandBuilder;
 
+        private string title;
+        public string Title
+        {
+            get => title;
+            set
+            {
+                title = value;
+                OnPropertyChanged(nameof(Title));
+            }
+        }
+        private string isbn;
+        public string Isbn
+        {
+            get => isbn;
+            set
+            {
+                isbn = value;
+                OnPropertyChanged(nameof(Isbn));
+            }
+        }
+
+        private string author;
+        public string Author
+        {
+            get => author;
+            set
+            {
+                author = value;
+                OnPropertyChanged(nameof(Author));
+            }
+        }
+
+        private string editorial;
+        public string Editorial
+        {
+            get => editorial;
+            set
+            {
+                editorial = value;
+                OnPropertyChanged(nameof(Editorial));
+            }
+        }
+
+        private int currentPage;
+        public int CurrentPage
+        {
+            get => currentPage;
+            set
+            {
+                currentPage = value;
+                OnPropertyChanged(nameof(CurrentPage));
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -50,6 +103,10 @@ namespace DatosLibros.ViewModel
             Adapter.Fill(DataSet, "libros");
             Connection.Close();
 
+            CurrentPage = 0;
+
+            ViewData();
+
             /*
             ContactList = new ObservableCollection<Contact>(DataHandler.ReadAll());
             NewContactCommand = new Command(NewContactAction);
@@ -68,6 +125,16 @@ namespace DatosLibros.ViewModel
             RefreshCommand = new Command(RefreshCAction);
         }
 
+        private void ViewData()
+        {
+            DataRow dataRow = DataSet.Tables["Libros"].Rows[CurrentPage];
+            if (dataRow.RowState == DataRowState.Deleted) return;
+            Title = dataRow["Titulo"].ToString();
+            Isbn = dataRow["ISBN"].ToString();
+            Author = dataRow["Autor"].ToString();
+            Editorial = dataRow["Editorial"].ToString();
+        }
+
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(
@@ -78,15 +145,25 @@ namespace DatosLibros.ViewModel
 
         private void FirstPageAction(object parameter)
         {
+            CurrentPage = 0;
+            ViewData();
         }
         private void NextPageAction(object parameter)
         {
+            if (currentPage == DataSet.Tables["Libros"].Rows.Count - 1) return;
+            CurrentPage++;
+            ViewData();
         }
         private void PreviousPageAction(object parameter)
         {
+            if (CurrentPage == 0) return;
+            CurrentPage--;
+            ViewData();
         }
         private void LastPageAction(object parameter)
         {
+            CurrentPage = DataSet.Tables["Libros"].Rows.Count - 1;
+            ViewData();
         }
         private void NewBookAction(object parameter)
         {
