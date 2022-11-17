@@ -13,10 +13,12 @@ namespace DatosLibros.ViewModel
 {
     internal class MainViewModel : INotifyPropertyChanged
     {
-        private OleDbConnection Connection;
-        private OleDbDataAdapter Adapter;
-        private DataSet DataSet;
-        private OleDbCommandBuilder CommandBuilder;
+        private const string DB_NAME = "Libros";
+
+        private readonly OleDbConnection Connection;
+        private readonly OleDbDataAdapter Adapter;
+        private readonly DataSet DataSet;
+        private readonly OleDbCommandBuilder CommandBuilder;
 
         private string title;
         public string Title
@@ -96,11 +98,6 @@ namespace DatosLibros.ViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        /*
-        private ObservableCollection<Contact> contactList = default!;
-        private Contact? selectedContact;
-        */
-
         public ICommand FirstPageCommand { get; set; }
         public ICommand NextPageCommand { get; set; }
         public ICommand PreviousPageCommand { get; set; }
@@ -128,7 +125,7 @@ namespace DatosLibros.ViewModel
             PropertyChanged += EventHandler;
 
             CurrentPage = 1;
-            TotalPages = DataSet.Tables["Libros"].Rows.Count;
+            TotalPages = DataSet.Tables[DB_NAME].Rows.Count;
 
             FirstPageCommand = new Command(FirstPageAction);
             NextPageCommand = new Command(NextPageAction);
@@ -143,7 +140,7 @@ namespace DatosLibros.ViewModel
 
         private void ViewData()
         {
-            DataRow dataRow = DataSet.Tables["Libros"].Rows[CurrentPage - 1];
+            DataRow dataRow = DataSet.Tables[DB_NAME].Rows[CurrentPage - 1];
             if (dataRow.RowState == DataRowState.Deleted) return;
             Title = dataRow["Titulo"].ToString();
             Isbn = dataRow["ISBN"].ToString();
@@ -183,32 +180,40 @@ namespace DatosLibros.ViewModel
         {
             CurrentPage = 1;
         }
+
         private void NextPageAction(object parameter)
         {
             if (CurrentPage == TotalPages) return;
             CurrentPage++;
         }
+
         private void PreviousPageAction(object parameter)
         {
             if (CurrentPage == 1) return;
             CurrentPage--;
         }
+
         private void LastPageAction(object parameter)
         {
-            CurrentPage = DataSet.Tables["Libros"].Rows.Count;
+            CurrentPage = DataSet.Tables[DB_NAME].Rows.Count;
         }
+
         private void NewBookAction(object parameter)
         {
         }
+
         private void InsertBookAction(object parameter)
         {
         }
+
         private void EditBookAction(object parameter)
         {
         }
+
         private void DeleteBookAction(object parameter)
         {
         }
+
         private void RefreshCAction(object parameter)
         {
         }
