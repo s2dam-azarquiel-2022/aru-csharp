@@ -72,6 +72,28 @@ namespace DatosLibros.ViewModel
             }
         }
 
+        private int totalPages;
+        public int TotalPages
+        {
+            get => totalPages;
+            set
+            {
+                totalPages = value;
+                OnPropertyChanged(nameof(TotalPages));
+            }
+        }
+
+        private string currentPageStr;
+        public string CurrentPageStr
+        {
+            get => currentPageStr;
+            set
+            {
+                currentPageStr = value;
+                OnPropertyChanged(nameof(CurrentPageStr));
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         /*
@@ -103,10 +125,9 @@ namespace DatosLibros.ViewModel
             Adapter.Fill(DataSet, "libros");
             Connection.Close();
 
-            CurrentPage = 0;
 
-            ViewData();
-
+            CurrentPage = 1;
+            TotalPages = DataSet.Tables["Libros"].Rows.Count;
 
             FirstPageCommand = new Command(FirstPageAction);
             NextPageCommand = new Command(NextPageAction);
@@ -121,7 +142,7 @@ namespace DatosLibros.ViewModel
 
         private void ViewData()
         {
-            DataRow dataRow = DataSet.Tables["Libros"].Rows[CurrentPage];
+            DataRow dataRow = DataSet.Tables["Libros"].Rows[CurrentPage - 1];
             if (dataRow.RowState == DataRowState.Deleted) return;
             Title = dataRow["Titulo"].ToString();
             Isbn = dataRow["ISBN"].ToString();
@@ -137,27 +158,28 @@ namespace DatosLibros.ViewModel
             );
         }
 
+        private void UpdateCurrentPageStr()
+        {
+            CurrentPageStr = String.Format("Libro {0} de {1}", CurrentPage, TotalPages);
+        }
+
         private void FirstPageAction(object parameter)
         {
-            CurrentPage = 0;
-            ViewData();
+            CurrentPage = 1;
         }
         private void NextPageAction(object parameter)
         {
-            if (currentPage == DataSet.Tables["Libros"].Rows.Count - 1) return;
+            if (CurrentPage == TotalPages) return;
             CurrentPage++;
-            ViewData();
         }
         private void PreviousPageAction(object parameter)
         {
-            if (CurrentPage == 0) return;
+            if (CurrentPage == 1) return;
             CurrentPage--;
-            ViewData();
         }
         private void LastPageAction(object parameter)
         {
-            CurrentPage = DataSet.Tables["Libros"].Rows.Count - 1;
-            ViewData();
+            CurrentPage = DataSet.Tables["Libros"].Rows.Count;
         }
         private void NewBookAction(object parameter)
         {
