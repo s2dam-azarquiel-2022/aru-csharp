@@ -56,16 +56,16 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" Content="Titulo: " />
-            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Title, Mode=TwoWay}" />
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Title, Mode=TwoWay}" IsEnabled="{Binding TextEnabled}" />
 
             <Label Grid.Row="1" Grid.Column="0" Content="Isbn: " />
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Isbn, Mode=TwoWay}" />
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Isbn, Mode=TwoWay}" IsEnabled="{Binding TextEnabled}" />
 
             <Label Grid.Row="2" Grid.Column="0" Content="Autor: " />
-            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Author, Mode=TwoWay}" />
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Author, Mode=TwoWay}" IsEnabled="{Binding TextEnabled}" />
 
             <Label Grid.Row="3" Grid.Column="0" Content="Editorial: " />
-            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Editorial, Mode=TwoWay}" />
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Editorial, Mode=TwoWay}" IsEnabled="{Binding TextEnabled}" />
         </Grid>
 
         <Grid Grid.Row="2" Grid.Column="1">
@@ -89,17 +89,17 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Row="0" Grid.Column="0" Content="Primero" Command="{Binding FirstPageCommand}" />
-            <Button Grid.Row="0" Grid.Column="1" Content="&lt;" Command="{Binding PreviousPageCommand}" />
-            <Button Grid.Row="0" Grid.Column="3" Content="&gt;" Command="{Binding LastPageCommand}" />
-            <Button Grid.Row="0" Grid.Column="4" Content="Ultimo" Command="{Binding LastPageCommand}" />
+            <Button Grid.Row="0" Grid.Column="0" Content="Primero" Command="{Binding FirstPageCommand}" IsEnabled="{Binding ButtonsEnabled}" />
+            <Button Grid.Row="0" Grid.Column="1" Content="&lt;" Command="{Binding PreviousPageCommand}" IsEnabled="{Binding ButtonsEnabled}" />
+            <Button Grid.Row="0" Grid.Column="3" Content="&gt;" Command="{Binding NextPageCommand}" IsEnabled="{Binding ButtonsEnabled}" />
+            <Button Grid.Row="0" Grid.Column="4" Content="Ultimo" Command="{Binding LastPageCommand}" IsEnabled="{Binding ButtonsEnabled}" />
 
-            <Button Grid.Row="1" Grid.Column="0" Content="Nuevo" Command="{Binding NewBookCommand}" />
-            <Button Grid.Row="1" Grid.Column="1" Content="Insertar" Command="{Binding InsertBookCommand}" />
-            <Button Grid.Row="1" Grid.Column="3" Content="Modificar" Command="{Binding EditBookCommand}" />
-            <Button Grid.Row="1" Grid.Column="4" Content="Borrar" Command="{Binding DeleteBookCommand}" />
+            <Button Grid.Row="1" Grid.Column="0" Content="Nuevo" Command="{Binding NewBookCommand}" IsEnabled="{Binding ButtonsEnabled}" />
+            <Button Grid.Row="1" Grid.Column="1" Content="Insertar" Command="{Binding InsertBookCommand}" IsEnabled="{Binding InsertBtnEnabled}" />
+            <Button Grid.Row="1" Grid.Column="3" Content="{Binding EditBtnText}" Command="{Binding EditBookCommand}" IsEnabled="{Binding EditBtnEnabled}" />
+            <Button Grid.Row="1" Grid.Column="4" Content="Borrar" Command="{Binding DeleteBookCommand}" IsEnabled="{Binding ButtonsEnabled}" />
 
-            <Button Content="Actualizar" Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Command="{Binding RefreshCommand}" />
+            <Button Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Content="Actualizar" Command="{Binding RefreshCommand}" IsEnabled="{Binding ButtonsEnabled}"/>
         </Grid>
     </Grid>
 </Window>
