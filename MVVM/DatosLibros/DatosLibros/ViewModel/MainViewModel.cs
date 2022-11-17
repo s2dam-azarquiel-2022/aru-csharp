@@ -125,6 +125,7 @@ namespace DatosLibros.ViewModel
             Adapter.Fill(DataSet, "libros");
             Connection.Close();
 
+            PropertyChanged += EventHandler;
 
             CurrentPage = 1;
             TotalPages = DataSet.Tables["Libros"].Rows.Count;
@@ -156,6 +157,21 @@ namespace DatosLibros.ViewModel
                 this,
                 new PropertyChangedEventArgs(propertyName)
             );
+        }
+
+        private void EventHandler(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(TotalPages):
+                    UpdateCurrentPageStr();
+                    break;
+
+                case nameof(CurrentPage):
+                    UpdateCurrentPageStr();
+                    ViewData();
+                    break;
+            }
         }
 
         private void UpdateCurrentPageStr()
