@@ -107,12 +107,6 @@ namespace DatosLibros.ViewModel
 
             ViewData();
 
-            /*
-            ContactList = new ObservableCollection<Contact>(DataHandler.ReadAll());
-            NewContactCommand = new Command(NewContactAction);
-            RemoveContactCommand = new Command(RemoveContactAction);
-            SaveAllCommand = new Command(SaveAllAction);
-            */
 
             FirstPageCommand = new Command(FirstPageAction);
             NextPageCommand = new Command(NextPageAction);
@@ -180,46 +174,5 @@ namespace DatosLibros.ViewModel
         private void RefreshCAction(object parameter)
         {
         }
-
-        /*
-        public ObservableCollection<Contact> ContactList
-        {
-            get => contactList;
-            set
-            {
-                contactList = value;
-                OnPropertyChanged(nameof(ContactList));
-            }
-        }
-
-        public Contact? SelectedContact
-        {
-            get => selectedContact;
-            set
-            {
-                selectedContact = value;
-                OnPropertyChanged(nameof(SelectedContact));
-            }
-        }
-
-        private void NewContactAction(object parameter)
-        {
-            Contact contact = new();
-            ContactList.Add(contact);
-        }
-
-        private void RemoveContactAction(object parametor)
-        {
-            if (selectedContact != null)
-            {
-                ContactList.Remove(selectedContact);
-            }
-        }
-
-        private void SaveAllAction(object parameter)
-        {
-            DataHandler.Save(ContactList);
-        }
-        */
     }
 }
