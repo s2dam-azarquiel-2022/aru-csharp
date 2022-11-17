@@ -195,7 +195,7 @@ namespace DatosLibros.ViewModel
 
         private void LastPageAction(object parameter)
         {
-            CurrentPage = DataSet.Tables[DB_NAME].Rows.Count;
+            CurrentPage = TotalPages;
         }
 
         private void NewBookAction(object parameter)
