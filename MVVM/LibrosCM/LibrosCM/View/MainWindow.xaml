@@ -1,0 +1,145 @@
+﻿<Window
+    x:Class="LibrosCM.View.MainWindow"
+    x:Name="AppMainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:LibrosCM.View"
+    mc:Ignorable="d"
+    Title="MainWindow"
+    Height="450"
+    Width="800"
+>
+    <Grid>
+        <Grid.Resources>
+        </Grid.Resources>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <ListBox
+            x:Name="listBoxBookTitles"
+            Grid.Row="0"
+            Grid.Column="0"
+            ItemsSource="{Binding BookTitlesList}"
+            SelectedItem="{Binding SelectedBookTitle, Mode=TwoWay}"
+        >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding BookTitle}" FontSize="20" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Grid
+            Grid.Row="0"
+            Grid.Column="1"
+            DataContext="{Binding
+                ElementName=listBoxBookTitles,
+                Path=SelectedItem
+            }"
+            Background="LightGreen"
+        >
+            <Grid.Resources>
+                <Style TargetType="Grid">
+                    <Setter Property="Background" Value="#ffe4c4" />
+                    <Setter Property="Margin" Value="7" />
+                </Style>
+                
+                <Style TargetType="UniformGrid">
+                    <Setter Property="Margin" Value="7,0,7,7" />
+                    <Setter Property="Columns" Value="3" />
+                </Style>
+                
+                <Style TargetType="Button">
+                    <Setter Property="Margin" Value="3" />
+                    <Setter Property="Padding" Value="1" />
+                </Style>
+            </Grid.Resources>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="0">
+                <Grid.Resources>
+                    <Style TargetType="Label">
+                        <Setter Property="Margin" Value="10,10,10,0" />
+                        <Setter Property="FontSize" Value="18" />
+                    </Style>
+
+                    <Style TargetType="TextBox">
+                        <Setter Property="Margin" Value="0,15,10,10" />
+                        <Setter Property="FontSize" Value="18" />
+                        <Setter Property="Background" Value="LightYellow" />
+                    </Style>
+                </Grid.Resources>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Content="Titulo: " />
+                <TextBox
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Text="{Binding Title, Mode=TwoWay}"
+                />
+
+                <Label Grid.Row="1" Grid.Column="0" Content="ISBN: " />
+                <TextBox
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Text="{Binding Isbn, Mode=TwoWay}"
+                />
+
+                <Label Grid.Row="2" Grid.Column="0" Content="Autor: " />
+                <TextBox
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Text="{Binding Author, Mode=TwoWay}"
+                />
+
+                <Label Grid.Row="3" Grid.Column="0" Content="Editorial: " />
+                <TextBox
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Text="{Binding Editorial, Mode=TwoWay}"
+                />
+            </Grid>
+
+            <UniformGrid Grid.Row="1" Grid.Column="0" Background="Blue">
+                <Button>Nuevo</Button>
+                <Button>Modificar</Button>
+                <Button>Eliminar</Button>
+            </UniformGrid>
+
+            <UniformGrid Grid.Row="2" Grid.Column="0" Background="Red">
+                <Button>Guardar</Button>
+                <Button>Actualizar</Button>
+                <Button>Cancelar</Button>
+            </UniformGrid>
+        </Grid>
+    </Grid>
+</Window>
