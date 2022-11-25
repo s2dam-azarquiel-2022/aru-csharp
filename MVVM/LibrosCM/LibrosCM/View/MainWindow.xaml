@@ -25,15 +25,15 @@
         </Grid.ColumnDefinitions>
 
         <ListBox
-            x:Name="listBoxBookTitles"
+            x:Name="listBoxBooks"
             Grid.Row="0"
             Grid.Column="0"
-            ItemsSource="{Binding BookTitlesList}"
-            SelectedItem="{Binding SelectedBookTitle, Mode=TwoWay}"
+            ItemsSource="{Binding BookList}"
+            SelectedItem="{Binding SelectedBook, Mode=TwoWay}"
         >
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding BookTitle}" FontSize="20" />
+                    <TextBlock Text="{Binding Title}" FontSize="20" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
@@ -42,7 +42,7 @@
             Grid.Row="0"
             Grid.Column="1"
             DataContext="{Binding
-                ElementName=listBoxBookTitles,
+                ElementName=listBoxBooks,
                 Path=SelectedItem
             }"
             Background="LightGreen"
