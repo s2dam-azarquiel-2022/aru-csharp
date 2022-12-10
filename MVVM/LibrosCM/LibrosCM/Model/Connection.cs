@@ -76,5 +76,29 @@ namespace LibrosCM.Model
             MessageBox.Show("Registro agregado exitosamente");
             DbConnection.Close();
         }
+
+        public int Remove(string isbn)
+        {
+            DbConnection = new OleDbConnection();
+            Command = new OleDbCommand(@"
+                DELETE FROM libros
+                WHERE isbn = @p0
+            ", DbConnection)
+            {
+                CommandType = CommandType.Text
+            };
+            Command.Parameters.AddWithValue("@p0", isbn);
+            try
+            {
+                DbConnection.Open();
+                return Command.ExecuteNonQuery();
+            } catch (Exception e)
+            {
+                throw e;
+            } finally
+            {
+                DbConnection.Close();
+            }
+        }
     }
 }
