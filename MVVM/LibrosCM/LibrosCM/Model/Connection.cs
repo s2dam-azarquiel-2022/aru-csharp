@@ -100,5 +100,37 @@ namespace LibrosCM.Model
                 DbConnection.Close();
             }
         }
+
+        public int Update(Book book)
+        {
+            DbConnection = new OleDbConnection(ConnectionString);
+            Command = new OleDbCommand(@"
+                UPDATE libros
+                SET titulo = @p1,
+                    isbn = @p2,
+                    autor = @p3,
+                    editorial = @p4
+                WHERE isbn = @p2
+            ", DbConnection)
+            {
+                CommandType = CommandType.Text
+            };
+            Command.Parameters.AddWithValue("@p1", book.Title);
+            Command.Parameters.AddWithValue("@p2", book.Isbn);
+            Command.Parameters.AddWithValue("@p3", book.Author);
+            Command.Parameters.AddWithValue("@p4", book.Editorial);
+            try
+            {
+                DbConnection.Open();
+                return Command.ExecuteNonQuery();
+            } catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                DbConnection.Close();
+            }
+        }
     }
 }
