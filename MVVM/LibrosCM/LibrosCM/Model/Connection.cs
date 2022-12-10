@@ -17,11 +17,16 @@ namespace LibrosCM.Model
 
         private string ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source='Z:\\MVVM\\DatosLibros\\DatosLibros\\Librerias.accdb'";
 
-        public ObservableCollection<Book> GetBooks()
+        public ObservableCollection<Book> Get()
         {
             DbConnection = new OleDbConnection(ConnectionString);
-            Command = new OleDbCommand("SELECT * FROM libros", DbConnection);
-            Command.CommandType = CommandType.Text;
+            Command = new OleDbCommand(@"
+                SELECT *
+                FROM libros
+            ", DbConnection)
+            {
+                CommandType = CommandType.Text
+            };
             ObservableCollection<Book> result = new ObservableCollection<Book>();
             try
             {

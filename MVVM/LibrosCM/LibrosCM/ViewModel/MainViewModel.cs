@@ -21,7 +21,7 @@ namespace LibrosCM.ViewModel
 
             // Setup other stuff
             connection = new Connection();
-            BookList = connection.GetBooks();
+            BookList = connection.Get();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
