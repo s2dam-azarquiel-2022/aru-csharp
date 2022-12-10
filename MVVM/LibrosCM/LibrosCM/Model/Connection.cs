@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using System.Windows;
 
 namespace LibrosCM.Model
 {
@@ -51,6 +52,29 @@ namespace LibrosCM.Model
             }
 
             return result;
+        }
+
+        public void Add(Book book)
+        {
+            DbConnection = new OleDbConnection(ConnectionString);
+            Command = new OleDbCommand
+            {
+                Connection = DbConnection,
+                CommandType = CommandType.Text,
+                CommandText = @"
+                    INSERT INTO libros
+                    (titulo, isbn, autor, editorial)
+                    VALUES (@p1, @p2, @p3, @p4);
+                "
+            };
+            Command.Parameters.AddWithValue("@p1", book.Title);
+            Command.Parameters.AddWithValue("@p2", book.Isbn);
+            Command.Parameters.AddWithValue("@p3", book.Author);
+            Command.Parameters.AddWithValue("@p4", book.Editorial);
+            DbConnection.Open();
+            Command.ExecuteNonQuery();
+            MessageBox.Show("Registro agregado exitosamente");
+            DbConnection.Close();
         }
     }
 }
