@@ -6,6 +6,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace LibrosCM.ViewModel
 {
@@ -25,6 +27,13 @@ namespace LibrosCM.ViewModel
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public ICommand NewCommand { get; set; }
+        public ICommand SaveCommand { get; set; }
+        public ICommand RemoveCommand { get; set; }
+        public ICommand EditCommand { get; set; }
+        public ICommand UpdateCommand { get; set; }
+        public ICommand CancelCommand { get; set; }
 
         private void OnPropertyChanged(string propertyName)
         {
@@ -118,6 +127,116 @@ namespace LibrosCM.ViewModel
                 Console.WriteLine(value);
                 OnPropertyChanged(nameof(Editorial));
             }
+        }
+
+        private void EmptyFields()
+        {
+            Title = "";
+            Isbn = "";
+            Author = "";
+            Editorial = "";
+        }
+
+        private void ShowNoSelectedBookMessage()
+        {
+            MessageBox.Show(
+                "No hay ningun libro seleccionado",
+                "Informacion",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information
+            );
+        }
+
+        private void NewAction(object parameter)
+        {
+            EmptyFields();
+        }
+
+        private void RemoveAction(object parameter)
+        {
+            if (SelectedBook != null)
+            {
+                if (MessageBox.Show(
+                        "Estas seguro de querer eliminar el libro seleccionado?",
+                        "Confirmar",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Warning
+                    ) == MessageBoxResult.Yes)
+                {
+                    int result = 0;
+                    try
+                    {
+                        result = connection.Remove(Isbn);
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message);
+                    }
+                    if (result > 0)
+                    {
+                        BookList.Remove(SelectedBook);
+                        EmptyFields();
+                    }
+                }
+                SelectedBook = null;
+            }
+            else ShowNoSelectedBookMessage();
+        }
+
+        private void EditAction(object parameter)
+        {
+            if (SelectedBook != null)
+            {
+
+            }
+            else ShowNoSelectedBookMessage();
+        }
+
+        private void UpdateAction(object parameter)
+        {
+            try
+            {
+                int result = 0;
+                result = connection.Update(SelectedBook);
+                if (result > 0)
+                {
+                    BookList = connection.Get();
+                }
+            } catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            } finally
+            {
+                
+            }
+        }
+
+        private void SaveAction(object parameter)
+        {
+            Book newBook = new Book
+            {
+                Title = Title,
+                Isbn = Isbn,
+                Author = Author,
+                Editorial = Editorial
+            };
+            try
+            {
+                connection.Add(newBook);
+                BookList.Add(newBook);
+            } catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            } finally
+            {
+
+            }
+        }
+
+        private void CancelAction(object parameter)
+        {
+            SelectedBook = null;
+            EmptyFields();
         }
     }
 }
